@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header">
+    <h3>Patient Records Table</h3>
+    <a href="{{ url_for('main.add_patient') }}" class="btn btn-add">+ Add Record</a>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Case No.</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Contact No.</th>
+            <th>Date Added</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient.case_no }}</td>
+            <td>{{ patient.last_name }}</td>
+            <td>{{ patient.first_name }}</td>
+            <td>{{ patient.gender }}</td>
+            <td>{{ patient.age }}</td>
+            <td>{{ patient.contact_no }}</td>
+            <td>{{ patient.date_added.strftime('%Y-%m-%d') }}</td>
+            <td>
+                <a href="{{ url_for('main.edit_patient', id=patient.id) }}" class="btn btn-edit">Edit</a>
+                <a href="{{ url_for('main.delete_patient', id=patient.id) }}" class="btn btn-delete" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
